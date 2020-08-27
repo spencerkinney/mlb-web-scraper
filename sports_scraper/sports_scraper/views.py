@@ -10,42 +10,35 @@ def hitters(request):
     players_parser = soup.find_all(class_="short-3OJ0bTju")
     positions_parser = soup.find_all(class_="position-28TbwVOg")
     teams_parser = soup.find_all(class_="col-group-end-2UJpJVwW number-aY5arzrB align-left-3L2SU-Mk is-table-pinned-1WfPW2jT")
+    gamesplayed_parser = soup.find_all(attrs={"data-col" : "2"}, class_="col-group-start-sa9unvY0 number-aY5arzrB align-right-3nN_D3xs is-table-pinned-1WfPW2jT")
+    atbats_parser = soup.find_all(attrs={"data-col" : "3"}, class_="col-group-end-2UJpJVwW number-aY5arzrB align-right-3nN_D3xs is-table-pinned-1WfPW2jT")
+    runs_parser = soup.find_all(attrs={"data-col" : "4"}, class_="col-group-start-sa9unvY0 number-aY5arzrB align-right-3nN_D3xs is-table-pinned-1WfPW2jT")
+    hits_parser = soup.find_all(attrs={"data-col" : "5"}, class_="number-aY5arzrB align-right-3nN_D3xs is-table-pinned-1WfPW2jT")
 
-    players_attr = {
-        "name": [],
-        "position": [],
-        "team": []
-    }
-
-    #Iterates through web page and stores every instance of parsed HTML classes
-    for player in players_parser:
-        players_attr["name"].append(str(player.text))
-    for position in positions_parser:
-        players_attr["position"].append(str(position.text))
-    for team in teams_parser:
-        players_attr["team"].append(str(team.text))
-
-    # Iterates through the player_attr dictionary items and creates a new 'players_sub_list' for each player inside the 'player_list'
+    # Creates a list of attributes for each player ('players_sub_list') for each player and stores it in the 'player_list' list
     players_list = []
     players_sublist = []
+    playerCount = len(players_parser)
 
-    for i in range(len(players_attr["name"])):
+    for i in range(playerCount):
         players_sublist = []
-        players_sublist.append(str(i +1))
-        players_sublist.append(players_attr["name"][i])
-        players_sublist.append(players_attr["position"][i])
-        players_sublist.append(players_attr["team"][i])
+        players_sublist.append(i +1)
+        players_sublist.append(str(players_parser[i].text))
+        players_sublist.append(str(positions_parser[i].text))
+        players_sublist.append(str(teams_parser[i].text))
+        players_sublist.append(str(gamesplayed_parser[i].text))
+        players_sublist.append(str(atbats_parser[i].text))
+        players_sublist.append(str(runs_parser[i].text))
+        players_sublist.append(str(hits_parser[i].text))
         players_list.append(players_sublist)
-
-
+    
     '''
 
     INPUT:   print(players_list)
 
-    EXAMPLE OUTPUT:   [['1', 'N Cruz', 'DH', 'MIN'], ['2', 'B Harper', 'RF', 'PHI'], ['3', 'L Voit', '1B', 'NYY'], ['4', 'B Lowe', '2B', 'TB'], ['5', 'J Winker', 'DH', 'CIN'], ['6', 'M Yastrzemski', 'CF', 'SF'], ['7', 'F Tatis Jr.', 'SS', 'SD'], ['8', 'K Lewis', 'CF', 'SEA'], ['9', 'R Grossman', 'LF', 'OAK'], ['10', 'J Abreu', '1B', 'CWS'], ['11', 'M Betts', 'RF', 'LAD'], ['12', 'A Rendon', '3B', 'LAA'], ['13', 'C Blackmon', 'RF', 'COL'], ['14', 'I Happ', 'CF', 'CHC'], ['15', 'A Santander', 'RF', 'BAL'], ['16', 'T Hernández', 'RF', 'TOR'], ['17', 'D LeMahieu', '2B', 'NYY'], ['18', 'P Severino', 'C', 'BAL'], ['19', 'P Goldschmidt', '1B', 'STL'], ['20', 'F Freeman', '1B', 'ATL'], ['21', 'J Realmuto', 'C', 'PHI'], ['22', 'M Trout', 'CF', 'LAA'], ['23', 'T Turner', 'SS', 'WSH'], ['24', 'N Castellanos', 'RF', 'CIN'], ['25', 'T Story', 'SS', 'COL']]
+    EXAMPLE OUTPUT: [[1, 'L Voit', '1B', 'NYY', '23', '80', '17', '24'], [2, 'B Harper', 'RF', 'PHI', '25', '82', '23', '26'], [3, 'B Lowe', '2B', 'TB', '31', '107', '26', '32'], [4, 'N Cruz', 'DH', 'MIN', '31', '110', '23', '35'], [5, 'J Abreu', '1B', 'CWS', '31', '125', '23', '40']...
 
     '''
-
 
     return render(request, 'index.html', {'players_list': players_list})
 
