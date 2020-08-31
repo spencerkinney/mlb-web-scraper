@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path('' , views.index , name="index"),
-    path('hitters/' , views.hitters , name="hitters"),
+    path('hitters/' , views.hitters, name="hitters"),
+    path('pitchers/', views.pitchers, name="pitchers"),
     path('admin/', admin.site.urls),
 ]
