@@ -7,10 +7,7 @@ def get_hitters_information(url):
 
     # Iterate through each /stats/hitting/?page=X
     for page in range(1, 8):
-        if page == 1:
-            reqs = requests.get(url)
-        else:
-            reqs = requests.get(url + '/?page=' + str(page))
+        reqs = requests.get(url + '/?page=' + str(page))
         soup = BeautifulSoup(reqs.text, 'lxml')
 
         # Get all relevant column data
@@ -29,10 +26,7 @@ def get_hitters_information(url):
         playerCount = len(players_parser)
         for i in range(playerCount):
             players_sublist = []
-            if page == 1:
-                players_sublist.append(i + 1)
-            else:
-                players_sublist.append(i + 1 + (25 * (page - 1)))
+            players_sublist.append( i + 1 + 25 * (page - 1) )
             players_sublist.append(str(players_parser[i].text))
             players_sublist.append(str(positions_parser[i].text))
             players_sublist.append(str(teams_parser[i].text))
@@ -51,6 +45,7 @@ def get_hitters_information(url):
             teams_list.append(player[3])
 
     # Create a roster of hitters where each key is a team and each value is a list of player lists that are in that team.
+    '''
     Roster = {}
     for team in teams_list:
         players_sublist = []
@@ -58,7 +53,9 @@ def get_hitters_information(url):
             if player[3] == team:
                 players_sublist.append(player)
         Roster[team] = players_sublist
+    '''
     return players_list
+    
 
 def get_pitchers_information(url):
     players_list = []
@@ -66,10 +63,8 @@ def get_pitchers_information(url):
 
     # Iterate through each /stats/pitching/?page=X
     for page in range(1, 3):
-        if page == 1:
-            reqs = requests.get(url)
-        else:
-            reqs = requests.get(url + '/?page=' + str(page))
+            
+        reqs = requests.get(url + '/?page=' + str(page))
         soup = BeautifulSoup(reqs.text, 'lxml')
 
         # Get all relevant column data
@@ -87,10 +82,7 @@ def get_pitchers_information(url):
         playerCount = len(players_parser)
         for i in range(playerCount):
             players_sublist = []
-            if page == 1:
-                players_sublist.append(i + 1)
-            else:
-                players_sublist.append(i + 1 + 25)
+            players_sublist.append( i + 1 + 25 * (page - 1) )
             players_sublist.append(str(players_parser[i].text))
             players_sublist.append(str(positions_parser[i].text))
             players_sublist.append(str(teams_parser[i].text))
@@ -108,11 +100,15 @@ def get_pitchers_information(url):
             teams_list.append(player[3])
 
     # Create a roster of pitchers where each key is a team and each value is a list of player lists that are in that team.
-    Roster = {}
+    '''
+    roster = {}
     for team in teams_list:
         players_sublist = []
         for player in players_list:
+            #if the string inside the TEAMS_PARSER is a string inside team 
             if player[3] == team:
                 players_sublist.append(player)
         Roster[team] = players_sublist
+    print (roster)
+    '''
     return players_list
