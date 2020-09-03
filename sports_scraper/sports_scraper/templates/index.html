@@ -1,24 +1,47 @@
 {% include "header.html" %}
-<style type="text/css">
-  body { background: #DFF0E2 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+
+<style>
+
+body { 
+  background: #BBD2C5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #536976, #BBD2C5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #536976, #BBD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+  div.container {
+    background :#fff;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 </style>
+
+
 <body>
+<center>
+
   <div class="container">
   {% if not hitters_list %}
     <br>
-      <center>
+
         <button onclick="location.href='{% url 'hitters' %}'" type="button" class="btn btn-primary">View Top Hitters</button>
-      </center>
+
+    <br>
     <br>
   {% endif %}
+
   {% if not pitchers_list %}
     <br>
-      <center>
+
         <button onclick="location.href='{% url 'pitchers' %}'" type="button" class="btn btn-primary">View Top Pitchers</button>
-      </center>
+
+    <br>
     <br>
   {% endif %}
-  <center>
+
+
+
     <table class="table table-dark">
       {% if hitters_list %}
       <thead>
@@ -74,8 +97,10 @@
         {% endfor %}
       </tbody>
     </table>
-  </center>
+  {% include 'footer.html' %}
   </div>
+
+
+</center>
 </body>
 
-{% include 'footer.html' %}
