@@ -1,6 +1,9 @@
 {% include "header.html" %}
-
+<style type="text/css">
+  body { background: #DFF0E2 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
 <body>
+  <div class="container">
   {% if not hitters_list %}
     <br>
       <center>
@@ -72,6 +75,7 @@
       </tbody>
     </table>
   </center>
+  </div>
 </body>
 
 {% include 'footer.html' %}
