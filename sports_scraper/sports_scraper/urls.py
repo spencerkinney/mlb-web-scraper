@@ -21,5 +21,7 @@ urlpatterns = [
     path('' , views.index , name="index"),
     path('hitters/' , views.hitters, name="hitters"),
     path('pitchers/', views.pitchers, name="pitchers"),
+    path('refresh/', views.refresh, name="refresh"),
+    path('headtohead/', views.headtohead, name="headtohead"),
     path('admin/', admin.site.urls),
 ]

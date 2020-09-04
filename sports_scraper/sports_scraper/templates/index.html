@@ -7,100 +7,112 @@ body {
   background: -webkit-linear-gradient(to right, #536976, #BBD2C5);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #536976, #BBD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
-  div.container {
-    background :#fff;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+div.container {
+  background :#fff;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 </style>
 
-
 <body>
-<center>
-
-  <div class="container">
-  {% if not hitters_list %}
-    <br>
-
+  <center>
+    <div class="container">
+      <br>
+      <button onclick="location.href='{% url 'refresh' %}'" type="button" class="btn btn-primary">Refresh lists</button>
+      <br>
+      <br>
+      {% if not hitters_list %}
+        <br>
         <button onclick="location.href='{% url 'hitters' %}'" type="button" class="btn btn-primary">View Top Hitters</button>
-
-    <br>
-    <br>
-  {% endif %}
-
-  {% if not pitchers_list %}
-    <br>
-
+        <br>
+        <br>
+      {% endif %}
+      {% if not pitchers_list %}
+        <br>
         <button onclick="location.href='{% url 'pitchers' %}'" type="button" class="btn btn-primary">View Top Pitchers</button>
-
-    <br>
-    <br>
-  {% endif %}
-
-
-
-    <table class="table table-dark">
-      {% if hitters_list %}
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Position</th>
-          <th scope="col">Team</th>
-          <th scope="col">Games Played</th>
-          <th scope="col">Turns at bat</th>
-          <th scope="col">Total runs</th>
-          <th scope="col">Total hits</th>
-        </tr>
-      </thead>
+        <br>
+        <br>
       {% endif %}
-      {% if pitchers_list %}
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Position</th>
-          <th scope="col">Team</th>
-          <th scope="col">W</th>
-          <th scope="col">L</th>
-          <th scope="col">ERA</th>
-        </tr>
-      </thead>
-      {% endif %}
-      <tbody>
-        {% for hitters in hitters_list %}
-          <tr>
-            <th scope="col">{{hitters.0}}</th>
-            <td>{{hitters.1}}</td>
-            <td>{{hitters.2}}</td>
-            <td>{{hitters.3}}</td>
-            <td>{{hitters.4}}</td>
-            <td>{{hitters.5}}</td>
-            <td>{{hitters.6}}</td>
-            <td>{{hitters.7}}</td>
-          </tr>
-        {% endfor %}
-        {% for pitchers in pitchers_list %}
-          <tr>
-            <th scope="col">{{pitchers.0}}</th>
-            <td>{{pitchers.1}}</td>
-            <td>{{pitchers.2}}</td>
-            <td>{{pitchers.3}}</td>
-            <td>{{pitchers.4}}</td>
-            <td>{{pitchers.5}}</td>
-            <td>{{pitchers.6}}</td>
-            <td>{{pitchers.7}}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% include 'footer.html' %}
-  </div>
+      <br>
+      <button onclick="location.href='{% url 'headtohead' %}'" type="button" class="btn btn-primary">Hitter Vs Pitcher</button>
+      <br>
+      <br>
 
-
-</center>
+      <table class="table table-dark">
+        {% if hitters_list %}
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Position</th>
+              <th scope="col">Team</th>
+              <th scope="col">Games Played</th>
+              <th scope="col">Turns at bat</th>
+              <th scope="col">Total runs</th>
+              <th scope="col">Total hits</th>
+            </tr>
+          </thead>
+        {% endif %}
+        {% if pitchers_list %}
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Position</th>
+              <th scope="col">Team</th>
+              <th scope="col">W</th>
+              <th scope="col">L</th>
+              <th scope="col">ERA</th>
+            </tr>
+          </thead>
+        {% endif %}
+        <tbody>
+          {% for hitters in hitters_list %}
+            <tr class='hitters'>
+              <th scope="col">{{hitters.0}}</th>
+              <td>{{hitters.1}}</td>
+              <td>{{hitters.2}}</td>
+              <td>{{hitters.3}}</td>
+              <td>{{hitters.4}}</td>
+              <td>{{hitters.5}}</td>
+              <td>{{hitters.6}}</td>
+              <td>{{hitters.7}}</td>
+            </tr>
+          {% endfor %}
+          {% for pitchers in pitchers_list %}
+            <tr class='pitchers'>
+              <th scope="col">{{pitchers.0}}</th>
+              <td>{{pitchers.1}}</td>
+              <td>{{pitchers.2}}</td>
+              <td>{{pitchers.3}}</td>
+              <td>{{pitchers.4}}</td>
+              <td>{{pitchers.5}}</td>
+              <td>{{pitchers.6}}</td>
+              <td>{{pitchers.7}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% include 'footer.html' %}
+    </div>
+  </center>
+  <script>
+    /*
+    Possible starting point for creating pages
+    var hitters_tables = document.getElementsByClassName('hitters')
+    var pitchers_table = document.getElementById('pitchers')
+    var hitters = hitters_tables.children
+    for(i = 0; i < hitters_tables.length; i += 1)
+    {
+      hitters_tables[i].children
+      for(i = 0; i < hitters.length; i += 1)
+      {
+        console.log(hitters[i].textContent)
+      }
+    }
+    */
+  </script>
 </body>
 
