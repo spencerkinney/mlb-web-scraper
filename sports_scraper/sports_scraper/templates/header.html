@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -6,12 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'sports_scraper/style.css' %}">  
     <title>MLB Web Scraper</title>
   </head>
 
   <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="../">MLB Web Scraper</a>
-  </nav>
-</header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="../">MLB Web Scraper</a>
+    </nav>
+  </header>
